@@ -17,8 +17,8 @@ Before you begin, make sure you have the following installed:
 First, clone the repository to your local machine using the following command in your terminal:
 
 ```bash
-git clone <your_repository_url>
-cd <your_repository_name>
+git clone https://github.com/ravindudil5han/Cat-Dog-Classifier.git
+cd Cat-Dog-Classifier
 ```
 
 -----
