@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat or Dog Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>🐱 Cat or Dog 🐶</h1>
+        <p>Upload an image to see if it's a cat or a dog!</p>
+        
+        <form id="upload-form">
+            <div class="upload-area" id="upload-area">
+                <input type="file" id="file-input" name="file" accept="image/*" required>
+                <label for="file-input">Drag & Drop or Click to Upload Image</label>
+            </div>
+            <button type="submit" id="submit-btn">Classify</button>
+        </form>
+        
+        <div id="display-container" class="display-container">
+            <h3 id="image-title"></h3>
+            <img id="uploaded-image" src="#" alt="Uploaded Image" style="display: none;">
+            <div id="result-container" class="result-container">
+                <h2 id="result-text"></h2>
+                <p id="confidence-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('upload-form');
+        const fileInput = document.getElementById('file-input');
+        const uploadArea = document.getElementById('upload-area');
+        const imageTitle = document.getElementById('image-title');
+        const uploadedImage = document.getElementById('uploaded-image');
+        const resultText = document.getElementById('result-text');
+        const confidenceText = document.getElementById('confidence-text');
+        const resultContainer = document.getElementById('result-container');
+        const displayContainer = document.getElementById('display-container');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Handle file drop events and display file name on selection
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            uploadArea.classList.add('highlight');
+        }
+
+        function unhighlight() {
+            uploadArea.classList.remove('highlight');
+        }
+
+        uploadArea.addEventListener('drop', handleDrop, false);
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+            displayFileName(files[0]);
+        }
+
+        fileInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                displayFileName(files[0]);
+            }
+        });
+
+        function displayFileName(file) {
+            const label = uploadArea.querySelector('label');
+            label.textContent = file.name;
+        }
+
+        // Handle form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.textContent = 'Classifying...';
+            submitBtn.disabled = true;
+            resultText.textContent = '';
+            confidenceText.textContent = '';
+            resultContainer.style.display = 'none';
+
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Display uploaded image and title
+                    uploadedImage.src = data.image_url;
+                    uploadedImage.style.display = 'block';
+                    imageTitle.textContent = `Image: ${fileInput.files[0].name}`;
+                    displayContainer.style.display = 'block';
+
+                    // Display prediction results
+                    resultText.textContent = `Prediction: ${data.result}`;
+                    confidenceText.textContent = `Confidence: ${data.confidence}`;
+                    resultContainer.style.display = 'block';
+                } else {
+                    const error = await response.json();
+                    resultText.textContent = `Error: ${error.error}`;
+                    confidenceText.textContent = '';
+                    resultContainer.style.display = 'block';
+                    uploadedImage.style.display = 'none';
+                    imageTitle.textContent = '';
+                }
+            } catch (error) {
+                console.error(error);
+                resultText.textContent = 'An error occurred. Please try again.';
+                confidenceText.textContent = '';
+                resultContainer.style.display = 'block';
+                uploadedImage.style.display = 'none';
+                imageTitle.textContent = '';
+            } finally {
+                submitBtn.textContent = 'Classify';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

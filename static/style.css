@@ -1,0 +1,121 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.display-container {
+    margin-top: 30px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: none; /* Hidden by default */
+    text-align: center;
+}
+
+#uploaded-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 15px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#image-title {
+    font-size: 18px;
+    color: #4b5563;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+h1 {
+    color: #1e3a8a;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    border: 2px dashed #9ca3af;
+    border-radius: 8px;
+    padding: 40px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.upload-area.highlight {
+    background-color: #e2e8f0;
+}
+
+.upload-area input[type="file"] {
+    display: none;
+}
+
+.upload-area label {
+    display: block;
+    font-size: 16px;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+button#submit-btn {
+    background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button#submit-btn:hover {
+    background-color: #2563eb;
+}
+
+button#submit-btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.result-container {
+    margin-top: 30px;
+    background-color: #e0f2f1;
+    border-radius: 8px;
+    padding: 20px;
+    display: none; /* Hidden by default */
+}
+
+#result-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1e40af;
+}
+
+#confidence-text {
+    font-size: 18px;
+    color: #047857;
+}
