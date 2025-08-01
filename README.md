@@ -7,7 +7,7 @@
 
 Before you begin, make sure you have the following installed:
 
-  * **Python 3.x**
+  * **Python 3.10**
   * **Git**
 
 -----
