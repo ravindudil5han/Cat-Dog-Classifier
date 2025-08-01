@@ -1,64 +1,76 @@
 
------
+---
 
-### 1\. Project Setup
+# 🐾 Cat vs. Dog Classifier – Project Documentation
 
-#### Prerequisites
+This project is a **Convolutional Neural Network (CNN)**-based image classifier designed to distinguish between images of cats and dogs. It includes a complete training pipeline and a Flask-based web application for real-time image prediction.
 
-Before you begin, make sure you have the following installed:
+---
 
-  * **Python 3.10**
-  * **Git**
+## 📦 1. Project Setup
 
------
+### ✅ Prerequisites
 
-#### Cloning the Repository
+Ensure the following are installed on your machine:
 
-First, clone the repository to your local machine using the following command in your terminal:
+* [Python 3.10](https://www.python.org/downloads/)
+* [Git](https://git-scm.com/)
+
+---
+
+### 📥 Clone the Repository
+
+Open your terminal and run:
 
 ```bash
 git clone https://github.com/ravindudil5han/Cat-Dog-Classifier.git
 cd Cat-Dog-Classifier
 ```
 
------
+---
 
-#### Creating a Virtual Environment
+### 🛠️ Create a Virtual Environment
 
-It's a good practice to use a virtual environment to manage project dependencies. This prevents conflicts with other Python projects.
+Using a virtual environment isolates project dependencies:
 
 ```bash
 python -m venv venv
 ```
 
-Then, activate the virtual environment:
+Activate it:
 
-  * **On Windows:**
-    ```bash
-    venv\Scripts\activate
-    ```
-  * **On macOS/Linux:**
-    ```bash
-    source venv/bin/activate
-    ```
+* **On Windows:**
 
------
+  ```bash
+  venv\Scripts\activate
+  ```
 
-#### Installing Dependencies
+* **On macOS/Linux:**
 
-With the virtual environment active, install all the required libraries using pip:
+  ```bash
+  source venv/bin/activate
+  ```
+
+---
+
+### 📚 Install Dependencies
+
+With the virtual environment activated, install the required libraries:
 
 ```bash
 pip install tensorflow matplotlib flask numpy pillow
 ```
 
------
+---
 
-### 2\. Dataset Preparation
+## 🗂️ 2. Dataset Preparation
 
-Your project uses a **Cat vs. Dog** dataset. You need to download and organize this dataset in the correct directory structure. The training and test data should be placed in `training_set` and `test_set` directories, respectively.
+This project uses a **Cats vs. Dogs** dataset. Download and organize the dataset as shown below:
 
-The required folder structure is as follows:
+> 📥 **Dataset used:**
+> [Kaggle - Cat and Dog Dataset](https://www.kaggle.com/datasets/tongpython/cat-and-dog)
+
+### 📁 Required Folder Structure
 
 ```
 .
@@ -82,47 +94,66 @@ The required folder structure is as follows:
         └── ...
 ```
 
-You can find a suitable dataset on Kaggle or other public sources. Download the dataset and extract it to match the structure above.
+Ensure your dataset matches this structure before proceeding.
 
------
+---
 
-### 3\. Training the Model
+## 🧠 3. Training the Model
 
-The `train.py` script is responsible for building and training the Convolutional Neural Network (CNN) model. It will save the trained model as `cat_dog_model.h5`.
-
-To start the training process, run:
+Run the training script using:
 
 ```bash
-python train.py
+python main.py
 ```
 
-This script will:
+This will:
 
-1.  Load the dataset from the `training_set` and `test_set` directories.
-2.  Train a CNN model over 100 epochs, but will stop early if it reaches **99.9% accuracy**.
-3.  Display plots of the training and validation accuracy and loss.
-4.  Save the final trained model as `cat_dog_model.h5`.
+1. Load and preprocess the dataset.
+2. Train a CNN model for up to **100 epochs**, using early stopping if accuracy reaches **99.9%**.
+3. Visualize training and validation performance.
+4. Save the model as `cat_dog_model.h5`.
 
------
+> 🧪 **Note:** Adjust training parameters in `main.py` if needed for custom experiments.
 
-### 4\. Running the Web Application
+---
 
-The `app.py` script serves a simple web interface for predicting whether an image is a cat or a dog. It uses the `cat_dog_model.h5` model saved in the previous step.
+## 🌐 4. Running the Web Application
 
-To run the web app, simply execute:
+The web interface is powered by **Flask**. To launch the application:
 
 ```bash
 python app.py
 ```
 
-After running this command, you should see a message in your terminal indicating that the Flask server is running, likely on **`http://127.0.0.1:5000`**.
+Once the server is running, open your browser and navigate to:
 
------
+```
+http://127.0.0.1:5000
+```
 
-### 5\. Usage
+---
 
-1.  Open your web browser and navigate to the address provided by the `app.py` script (e.g., `http://127.0.0.1:5000`).
-2.  You will be presented with a simple interface where you can upload an image.
-3.  Click the "Choose File" button to select a picture of a cat or a dog.
-4.  Click the "Predict" button.
-5.  The application will then display the prediction (Cat or Dog) along with the confidence score.
+## 🖼️ 5. Using the Web App
+
+1. Open the web app in your browser.
+2. Click **"Choose File"** to upload a cat or dog image.
+3. Click **"Predict"** to classify the image.
+4. The model will display:
+
+   * 🐱 "Cat" or 🐶 "Dog"
+   * 📊 Prediction confidence score
+
+---
+
+## 🚀 Project Highlights
+
+* ✅ Clean modular codebase
+* 🧠 CNN trained from scratch
+* 🖼️ Live image upload interface with Flask
+* 📈 Real-time prediction results
+
+---
+
+For any questions or improvements, feel free to contribute or open an issue on the [GitHub repository](https://github.com/ravindudil5han/Cat-Dog-Classifier).
+
+---
